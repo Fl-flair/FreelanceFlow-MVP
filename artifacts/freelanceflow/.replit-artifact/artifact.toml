@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "FreelanceFlow"
+description = "An AI-assisted workspace for solo freelancers to turn client inquiries into proposals, convert accepted work into invoices, and prepare polite payment reminders for approval."
+version = "1.0.0"
+id = "artifacts/freelanceflow"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 24239
+
+[services.development]
+run = "pnpm --filter @workspace/freelanceflow run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/freelanceflow", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/freelanceflow/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "24239"
+BASE_PATH = "/"
