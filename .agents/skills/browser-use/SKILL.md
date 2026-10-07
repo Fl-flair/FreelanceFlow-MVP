@@ -1,24 +1,22 @@
 ---
 name: browser-use
-description: "Direct browser control via CDP for web interaction: automation, scraping, testing, screenshots, and site/app work."
-homepage: https://browser-use.com
+description: >-
+  Direct browser control via CDP for web interaction: automation, scraping,
+  testing, screenshots, and site/app work.
+homepage: 'https://browser-use.com'
 metadata:
-  {
-    "openclaw":
-      {
-        "requires": { "bins": ["browser-use"] },
-        "install":
-          [
-            {
-              "id": "uv",
-              "kind": "uv",
-              "package": "browser-use",
-              "bins": ["browser-use"],
-              "label": "Install Browser Use CLI (uv)",
-            },
-          ],
-      },
-  }
+  openclaw:
+    requires:
+      bins:
+        - browser-use
+    install:
+      - id: uv
+        kind: uv
+        package: browser-use
+        bins:
+          - browser-use
+        label: Install Browser Use CLI (uv)
+enabled: false
 ---
 
 # Browser Use
