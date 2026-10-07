@@ -1,4 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap');
+@layer theme, base, clerk, components, utilities;
 @import 'tailwindcss';
+@import '@clerk/themes/shadcn.css';
 @import 'tw-animate-css';
 @plugin "@tailwindcss/typography";
 
@@ -78,71 +81,43 @@
   --elevate-1: rgba(0, 0, 0, 0.03);
   --elevate-2: rgba(0, 0, 0, 0.08);
 
-  --background: red; /*replace with H S L */
-
-  --foreground: red; /*replace with H S L */
-
-  --border: red; /*replace with H S L */
-
-  --card: red; /*replace with H S L */
-
-  --card-foreground: red; /*replace with H S L */
-
-  --card-border: red; /*replace with H S L */
-
-  --sidebar: red; /*replace with H S L */
-
-  --sidebar-foreground: red; /*replace with H S L */
-
-  --sidebar-border: red; /*replace with H S L */
-
-  --sidebar-primary: red; /*replace with H S L */
-
-  --sidebar-primary-foreground: red; /*replace with H S L */
-
-  --sidebar-accent: red; /*replace with H S L */
-
-  --sidebar-accent-foreground: red; /*replace with H S L */
-
-  --sidebar-ring: red; /*replace with H S L */
-
-  --popover: red; /*replace with H S L */
-
-  --popover-foreground: red; /*replace with H S L */
-
-  --popover-border: red; /*replace with H S L */
-
-  --primary: red; /*replace with H S L */
-
-  --primary-foreground: red; /*replace with H S L */
-
-  --secondary: red; /*replace with H S L */
-
-  --secondary-foreground: red; /*replace with H S L */
-
-  --muted: red; /*replace with H S L */
-
-  --muted-foreground: red; /*replace with H S L */
-
-  --accent: red; /*replace with H S L */
-
-  --accent-foreground: red; /*replace with H S L */
-
-  --destructive: red; /*replace with H S L */
-
-  --destructive-foreground: red; /*replace with H S L */
-
-  --input: red; /*replace with H S L */
-  --ring: red; /*replace with H S L */
-  --chart-1: red; /*replace with H S L */
-  --chart-2: red; /*replace with H S L */
-  --chart-3: red; /*replace with H S L */
-  --chart-4: red; /*replace with H S L */
-  --chart-5: red; /*replace with H S L */
-
-  --app-font-sans: 'Inter', sans-serif;
-  --app-font-serif: Georgia, serif;
-  --app-font-mono: Menlo, monospace;
+  --background: 42 38% 96%;
+  --foreground: 215 28% 19%;
+  --border: 38 21% 86%;
+  --input: 38 21% 86%;
+  --card: 42 35% 99%;
+  --card-foreground: 215 28% 19%;
+  --card-border: 38 21% 87%;
+  --sidebar: 218 29% 19%;
+  --sidebar-foreground: 42 32% 93%;
+  --sidebar-border: 218 19% 29%;
+  --sidebar-primary: 157 38% 55%;
+  --sidebar-primary-foreground: 218 32% 15%;
+  --sidebar-accent: 218 24% 26%;
+  --sidebar-accent-foreground: 42 32% 95%;
+  --sidebar-ring: 157 38% 55%;
+  --popover: 42 35% 99%;
+  --popover-foreground: 215 28% 19%;
+  --popover-border: 38 21% 87%;
+  --primary: 157 38% 37%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 35 30% 91%;
+  --secondary-foreground: 215 28% 24%;
+  --muted: 40 25% 92%;
+  --muted-foreground: 215 11% 48%;
+  --accent: 157 31% 91%;
+  --accent-foreground: 157 38% 25%;
+  --destructive: 4 59% 48%;
+  --destructive-foreground: 0 0% 100%;
+  --ring: 157 38% 37%;
+  --chart-1: 157 38% 37%;
+  --chart-2: 35 62% 55%;
+  --chart-3: 215 30% 38%;
+  --chart-4: 8 54% 61%;
+  --chart-5: 182 28% 48%;
+  --app-font-sans: 'DM Sans', sans-serif;
+  --app-font-serif: 'Manrope', sans-serif;
+  --app-font-mono: 'IBM Plex Mono', monospace;
   --radius: 0.5rem; /* 8px */
   --shadow-2xs: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0); /*replace with H S L */
   --shadow-xs: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0); /*replace with H S L */
@@ -227,68 +202,40 @@
   --elevate-1: rgba(255, 255, 255, 0.04);
   --elevate-2: rgba(255, 255, 255, 0.09);
 
-  --background: red; /*replace with H S L */
-
-  --foreground: red; /*replace with H S L */
-
-  --border: red; /*replace with H S L */
-
-  --card: red; /*replace with H S L */
-
-  --card-foreground: red; /*replace with H S L */
-
-  --card-border: red; /*replace with H S L */
-
-  --sidebar: red; /*replace with H S L */
-
-  --sidebar-foreground: red; /*replace with H S L */
-
-  --sidebar-border: red; /*replace with H S L */
-
-  --sidebar-primary: red; /*replace with H S L */
-
-  --sidebar-primary-foreground: red; /*replace with H S L */
-
-  --sidebar-accent: red; /*replace with H S L */
-
-  --sidebar-accent-foreground: red; /*replace with H S L */
-
-  --sidebar-ring: red; /*replace with H S L */
-
-  --popover: red; /*replace with H S L */
-
-  --popover-foreground: red; /*replace with H S L */
-
-  --popover-border: red; /*replace with H S L */
-
-  --primary: red; /*replace with H S L */
-
-  --primary-foreground: red; /*replace with H S L */
-
-  --secondary: red; /*replace with H S L */
-
-  --secondary-foreground: red; /*replace with H S L */
-
-  --muted: red; /*replace with H S L */
-
-  --muted-foreground: red; /*replace with H S L */
-
-  --accent: red; /*replace with H S L */
-
-  --accent-foreground: red; /*replace with H S L */
-
-  --destructive: red; /*replace with H S L */
-
-  --destructive-foreground: red; /*replace with H S L */
-
-  /* Used as the border around inputs. Dark mode: Should be a border that is light enough to have high contrast when rendered on a --card background. More contrast than standard --border */
-  --input: red; /*replace with H S L */
-  --ring: red; /*replace with H S L */
-  --chart-1: red; /*replace with H S L */
-  --chart-2: red; /*replace with H S L */
-  --chart-3: red; /*replace with H S L */
-  --chart-4: red; /*replace with H S L */
-  --chart-5: red; /*replace with H S L */
+  --background: 218 29% 14%;
+  --foreground: 42 32% 93%;
+  --border: 218 19% 29%;
+  --card: 218 26% 18%;
+  --card-foreground: 42 32% 93%;
+  --card-border: 218 19% 29%;
+  --sidebar: 218 33% 11%;
+  --sidebar-foreground: 42 32% 93%;
+  --sidebar-border: 218 19% 23%;
+  --sidebar-primary: 157 38% 55%;
+  --sidebar-primary-foreground: 218 32% 15%;
+  --sidebar-accent: 218 24% 20%;
+  --sidebar-accent-foreground: 42 32% 95%;
+  --sidebar-ring: 157 38% 55%;
+  --popover: 218 26% 18%;
+  --popover-foreground: 42 32% 93%;
+  --popover-border: 218 19% 29%;
+  --primary: 157 38% 55%;
+  --primary-foreground: 218 32% 13%;
+  --secondary: 218 22% 25%;
+  --secondary-foreground: 42 32% 93%;
+  --muted: 218 23% 23%;
+  --muted-foreground: 215 12% 67%;
+  --accent: 157 24% 23%;
+  --accent-foreground: 157 39% 79%;
+  --destructive: 4 59% 57%;
+  --destructive-foreground: 0 0% 100%;
+  --input: 218 19% 29%;
+  --ring: 157 38% 55%;
+  --chart-1: 157 38% 55%;
+  --chart-2: 35 62% 62%;
+  --chart-3: 215 30% 62%;
+  --chart-4: 8 54% 68%;
+  --chart-5: 182 28% 62%;
 
   --shadow-2xs: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0);
   --shadow-xs: 0px 2px 0px 0px hsl(202.8169 89.1213% 53.1373% / 0);
@@ -317,8 +264,24 @@
 
   body {
     @apply font-sans antialiased bg-background text-foreground;
+    font-family: var(--app-font-sans);
   }
 }
+
+@layer components {
+  .page-wrap { @apply mx-auto w-full max-w-[1440px] px-5 py-8 md:px-10 md:py-10; }
+  .surface { @apply rounded-2xl border border-border bg-card; box-shadow: 0 8px 28px rgba(53,62,59,.035); }
+  .field { @apply w-full rounded-xl border border-border bg-background px-3.5 py-3 text-sm text-foreground outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/15; }
+  .label { @apply mb-1.5 block text-xs font-semibold tracking-wide text-muted-foreground; }
+  .btn-primary { @apply inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground transition hover:brightness-95 active:translate-y-px disabled:opacity-55; }
+  .btn-quiet { @apply inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-card px-3.5 py-2.5 text-sm font-semibold text-foreground transition hover:bg-muted; }
+}
+
+.animate-enter { animation: enter .42s cubic-bezier(.2,.7,.2,1) both; }
+@keyframes enter { from { opacity: 0; transform: translateY(8px) } to { opacity: 1; transform: translateY(0) } }
+.grain:before { content:""; position:fixed; inset:0; pointer-events:none; z-index:50; opacity:.025; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E"); }
+@media print { .no-print { display:none !important } body { background:white; } .print-sheet { box-shadow:none !important; border:0 !important; } }
+@media print { body.printing-invoice [data-testid^="card-invoice-"]:not(.print-selected) { display:none !important; } }
 
 /**
  * Using the elevate system.

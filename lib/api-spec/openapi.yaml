@@ -3,13 +3,15 @@ info:
   # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: FreelanceFlow API
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: freelance
+    description: Clients, proposals, invoices, and reminder drafts
 paths:
   /healthz:
     get:
@@ -24,6 +26,339 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  /freelance/overview:
+    get:
+      operationId: getFreelanceOverview
+      tags: [freelance]
+      summary: Get dashboard summary
+      responses:
+        "200":
+          description: Dashboard metrics
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FreelanceOverview"
+
+  /clients:
+    get:
+      operationId: listClients
+      tags: [freelance]
+      summary: List clients
+      responses:
+        "200":
+          description: Client records
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Client"
+    post:
+      operationId: createClient
+      tags: [freelance]
+      summary: Create a client
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ClientInput"
+      responses:
+        "201":
+          description: Client created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Client"
+
+  /clients/{id}:
+    patch:
+      operationId: updateClient
+      tags: [freelance]
+      summary: Update a client
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ClientUpdate"
+      responses:
+        "200":
+          description: Client updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Client"
+        "404":
+          description: Client not found
+    delete:
+      operationId: deleteClient
+      tags: [freelance]
+      summary: Delete a client
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Client deleted
+        "404":
+          description: Client not found
+
+  /proposals:
+    get:
+      operationId: listProposals
+      tags: [freelance]
+      summary: List proposals
+      responses:
+        "200":
+          description: Proposal records
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Proposal"
+    post:
+      operationId: createProposal
+      tags: [freelance]
+      summary: Create a proposal draft
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProposalInput"
+      responses:
+        "201":
+          description: Proposal created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Proposal"
+
+  /proposals/{id}:
+    patch:
+      operationId: updateProposal
+      tags: [freelance]
+      summary: Edit a proposal or change its status
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProposalUpdate"
+      responses:
+        "200":
+          description: Proposal updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Proposal"
+        "404":
+          description: Proposal not found
+    delete:
+      operationId: deleteProposal
+      tags: [freelance]
+      summary: Delete a proposal
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Proposal deleted
+        "404":
+          description: Proposal not found
+
+  /proposals/{id}/convert:
+    post:
+      operationId: convertProposalToInvoice
+      tags: [freelance]
+      summary: Create an invoice from an accepted proposal
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ConvertProposalInput"
+      responses:
+        "201":
+          description: Invoice created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Invoice"
+        "404":
+          description: Proposal not found
+
+  /invoices:
+    get:
+      operationId: listInvoices
+      tags: [freelance]
+      summary: List invoices
+      responses:
+        "200":
+          description: Invoice records
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Invoice"
+    post:
+      operationId: createInvoice
+      tags: [freelance]
+      summary: Create an invoice manually
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/InvoiceInput"
+      responses:
+        "201":
+          description: Invoice created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Invoice"
+
+  /invoices/{id}:
+    patch:
+      operationId: updateInvoice
+      tags: [freelance]
+      summary: Update invoice details or payment status
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/InvoiceUpdate"
+      responses:
+        "200":
+          description: Invoice updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Invoice"
+        "404":
+          description: Invoice not found
+    delete:
+      operationId: deleteInvoice
+      tags: [freelance]
+      summary: Delete an invoice
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Invoice deleted
+        "404":
+          description: Invoice not found
+
+  /invoices/{id}/reminders:
+    post:
+      operationId: createReminderDraft
+      tags: [freelance]
+      summary: Create a payment reminder draft
+      description: Creates an editable reminder template for the selected timing. It does not send email.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ReminderInput"
+      responses:
+        "201":
+          description: Reminder draft created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Reminder"
+        "404":
+          description: Invoice not found
+
+  /reminders:
+    get:
+      operationId: listReminders
+      tags: [freelance]
+      summary: List reminder drafts
+      responses:
+        "200":
+          description: Reminder records
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Reminder"
+
+  /reminders/{id}:
+    patch:
+      operationId: updateReminder
+      tags: [freelance]
+      summary: Edit a reminder or mark it sent
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ReminderUpdate"
+      responses:
+        "200":
+          description: Reminder updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Reminder"
+        "404":
+          description: Reminder not found
+
 components:
   schemas:
     HealthStatus:
@@ -31,6 +366,147 @@ components:
       properties:
         status:
           type: string
-      required:
-        - status
+      required: [status]
+
+    Client:
+      type: object
+      required: [id, name, email, company, notes, createdAt]
+      properties:
+        id: { type: integer }
+        name: { type: string }
+        email: { type: ["string", "null"] }
+        company: { type: ["string", "null"] }
+        notes: { type: ["string", "null"] }
+        createdAt: { type: string, format: date-time }
+    ClientInput:
+      type: object
+      required: [name]
+      properties:
+        name: { type: string, minLength: 1 }
+        email: { type: ["string", "null"], format: email }
+        company: { type: ["string", "null"] }
+        notes: { type: ["string", "null"] }
+    ClientUpdate:
+      type: object
+      properties:
+        name: { type: string, minLength: 1 }
+        email: { type: ["string", "null"], format: email }
+        company: { type: ["string", "null"] }
+        notes: { type: ["string", "null"] }
+
+    Proposal:
+      type: object
+      required: [id, clientId, clientName, title, sourceText, content, amount, timeline, status, createdAt, updatedAt]
+      properties:
+        id: { type: integer }
+        clientId: { type: ["integer", "null"] }
+        clientName: { type: string }
+        title: { type: string }
+        sourceText: { type: ["string", "null"] }
+        content: { type: string }
+        amount: { type: number }
+        timeline: { type: string }
+        status: { type: string, enum: [draft, sent, accepted, declined] }
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+    ProposalInput:
+      type: object
+      required: [clientName, title, content, amount, timeline]
+      properties:
+        clientId: { type: ["integer", "null"] }
+        clientName: { type: string, minLength: 1 }
+        title: { type: string, minLength: 1 }
+        sourceText: { type: ["string", "null"] }
+        content: { type: string }
+        amount: { type: number, minimum: 0 }
+        timeline: { type: string }
+    ProposalUpdate:
+      type: object
+      properties:
+        clientId: { type: ["integer", "null"] }
+        clientName: { type: string, minLength: 1 }
+        title: { type: string, minLength: 1 }
+        sourceText: { type: ["string", "null"] }
+        content: { type: string }
+        amount: { type: number, minimum: 0 }
+        timeline: { type: string }
+        status: { type: string, enum: [draft, sent, accepted, declined] }
+    ConvertProposalInput:
+      type: object
+      required: [dueDate]
+      properties:
+        dueDate: { type: string, format: date }
+
+    Invoice:
+      type: object
+      required: [id, invoiceNumber, clientId, proposalId, clientName, clientEmail, description, amount, dueDate, status, createdAt, updatedAt]
+      properties:
+        id: { type: integer }
+        invoiceNumber: { type: string }
+        clientId: { type: ["integer", "null"] }
+        proposalId: { type: ["integer", "null"] }
+        clientName: { type: string }
+        clientEmail: { type: ["string", "null"] }
+        description: { type: string }
+        amount: { type: number }
+        dueDate: { type: string, format: date }
+        status: { type: string, enum: [unpaid, paid, overdue] }
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+    InvoiceInput:
+      type: object
+      required: [clientName, description, amount, dueDate]
+      properties:
+        clientId: { type: ["integer", "null"] }
+        clientName: { type: string, minLength: 1 }
+        clientEmail: { type: ["string", "null"], format: email }
+        description: { type: string }
+        amount: { type: number, minimum: 0 }
+        dueDate: { type: string, format: date }
+    InvoiceUpdate:
+      type: object
+      properties:
+        clientName: { type: string, minLength: 1 }
+        clientEmail: { type: ["string", "null"], format: email }
+        description: { type: string }
+        amount: { type: number, minimum: 0 }
+        dueDate: { type: string, format: date }
+        status: { type: string, enum: [unpaid, paid, overdue] }
+
+    Reminder:
+      type: object
+      required: [id, invoiceId, invoiceNumber, clientName, timing, message, status, createdAt]
+      properties:
+        id: { type: integer }
+        invoiceId: { type: integer }
+        invoiceNumber: { type: string }
+        clientName: { type: string }
+        timing: { type: string, enum: [before_due, on_due, late] }
+        message: { type: string }
+        status: { type: string, enum: [draft, sent] }
+        createdAt: { type: string, format: date-time }
+    ReminderInput:
+      type: object
+      required: [timing]
+      properties:
+        timing: { type: string, enum: [before_due, on_due, late] }
+    ReminderUpdate:
+      type: object
+      properties:
+        message: { type: string }
+        status: { type: string, enum: [draft, sent] }
+
+    FreelanceOverview:
+      type: object
+      required: [activeProposals, outstandingInvoices, outstandingAmount, paidThisMonth, remindersToReview, recentInvoices]
+      properties:
+        activeProposals: { type: integer }
+        outstandingInvoices: { type: integer }
+        outstandingAmount: { type: number }
+        paidThisMonth: { type: number }
+        remindersToReview: { type: integer }
+        recentInvoices:
+          type: array
+          items:
+            $ref: "#/components/schemas/Invoice"
 

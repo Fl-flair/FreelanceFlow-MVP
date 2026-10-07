@@ -1,0 +1,1 @@
+- [FreelanceFlow AI setup](freelanceflow-ai-setup.md) — Do not retry AI provider setup or request a key unless the user asks to revisit it.
