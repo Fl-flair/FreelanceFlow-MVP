@@ -1,0 +1,67 @@
+FreelanceFlow MVP: Updated Plan with Monetization
+
+I've folded your monetization framework into the plan. For this app, the best fit is a subscription core with a small usage-based layer, because the AI drafting has a real per-request cost.
+
+Monetization Strategy for FreelanceFlow
+
+Primary model: SaaS subscription with a reverse trial
+
+New users start on a 14-day Pro trial (no credit card needed), then drop automatically to the Free tier instead of being locked out. They keep their data and can still use the basics, which keeps them coming back.
+Free tier: 3 proposals and 3 invoices per month, FreelanceFlow branding on PDFs, manual reminders only.
+Pro tier: one paid plan at $12/month or $99/year. Unlimited proposals and invoices, custom branding, automatic payment reminders, priority support.
+No Enterprise tier yet. Solo freelancers are the target. Add a Team plan only after users ask for it.
+
+Secondary model: AI credits (usage-based safeguard)
+
+Pro includes a fair-use cap (e.g., 100 AI drafts/month) to protect your margins.
+Heavy users can buy credit packs (e.g., $5 for 100 extra drafts).
+Track every AI call in the database so you know your real cost per user.
+
+Deferred models (don't build yet)
+
+Transaction fees: Once you add built-in payments via Stripe, you could take a small fee (e.g., 1-2%) on invoices paid through the platform. Skip this in the MVP to avoid compliance work.
+Lifetime deal: Consider a limited-time lifetime offer ($149-199) for early adopters once you have 50+ users. It brings in upfront cash but cap how many you sell.
+Featured listings: Not relevant unless you build a marketplace.
+Updated MVP Feature List
+Proposal generator (AI)
+Simple invoicing
+Smart payment reminders
+Billing and plans (new): upgrade, downgrade, and cancel; trial countdown banner; usage meter ("2 of 3 free proposals used")
+Updated Tech Stack
+Payments: Start with Stripe Checkout and the Customer Portal (fastest to build). If you plan to sell globally and don't want to handle sales tax/VAT yourself, use Paddle or Lemon Squeezy as a Merchant of Record instead. Either one removes most billing UI work.
+Webhooks: A server endpoint listens for subscription events (checkout.session.completed, customer.subscription.updated, customer.subscription.deleted) and updates the user's record.
+Everything else stays the same: Next.js, Supabase, Claude API, Resend.
+Gated Feature Logic
+
+Add these columns to the users table:
+
+Column	Example values	Purpose
+tier	free, pro	Controls feature access
+subscription_status	trialing, active, past_due, canceled	Mirrors the Stripe state
+trial_ends_at	timestamp	Drives the reverse-trial downgrade
+ai_credits_used	integer	Tracks monthly AI usage
+ai_credits_reset_at	timestamp	Monthly reset date
+
+Rules to enforce on the server, not just the UI:
+
+Before any AI call or invoice creation, check the user's tier and usage count. Return a clear "upgrade" response if they're over the limit.
+Treat trialing and active as Pro. Treat everything else as Free.
+A scheduled job (or a check at login) downgrades users when trial_ends_at passes without a subscription.
+Use Supabase row-level security so free users can't reach Pro-only data or endpoints.
+Revised 4-Week Build Plan
+Week 1: Interview 10-15 freelancers, including a question on what they'd pay and for what. Build a clickable mockup with the pricing page.
+Week 2: Build the proposal generator, auth, and the tier and usage-tracking columns.
+Week 3: Add invoicing, reminders, and Stripe Checkout, the Customer Portal, and webhooks. Test the full flow with Stripe test mode: trial, upgrade, failed payment, cancel.
+Week 4: Launch the beta to 20-30 users with the reverse trial live. Watch which limits trigger upgrade clicks.
+Pricing Experiments to Run After Launch
+Test $9 vs. $12 vs. $15 monthly with new signups.
+Check which free-tier limit users hit first. That's what they value most.
+Watch trial-to-paid conversion. A healthy target for a reverse trial is roughly 10-20%, though it varies widely.
+Only add a second paid tier once you see clear demand for it, such as users asking for team seats or more AI usage.
+Success Metrics (Updated)
+40%+ of signups create a proposal in their first session
+10%+ of trial users convert to paid
+Monthly churn under 7% among paying users
+AI cost per user stays below 20% of subscription revenue
+
+If you want, I can write the Stripe webhook handler, the database schema in SQL, or the pricing page copy next. Which would help mos
