@@ -44,12 +44,12 @@ A private, niche-neutral workbench for solo freelancers to manage clients, propo
 - Manually written proposals with status tracking and conversion to invoices after acceptance.
 - Invoice creation, PDF printing, due-date tracking, and manual paid/unpaid status updates.
 - Editable before-due, due-date, and late reminder templates; sending is always controlled by the freelancer.
-- AI proposal drafting is not available; users can write and edit proposal content manually.
+- The current app remains manual-only. Approved future direction includes subscription plans, AI drafts with usage credits, and automatic invoice reminders; these are not implemented yet.
 
 ## User preferences
 
 - Keep the first release niche-neutral.
-- Do not add automatic reminder emails or represent payment collection as built in.
+- Do not represent invoice payment collection as built in; the approved subscription direction is separate from client invoice payments.
 
 ## Gotchas
 

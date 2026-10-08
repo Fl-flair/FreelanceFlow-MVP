@@ -3,8 +3,8 @@ name: FreelanceFlow AI setup
 description: The user declined AI provider setup for FreelanceFlow; preserve manual proposal editing without simulating AI.
 ---
 
-Do not retry AI Integrations setup or request an Anthropic API key for FreelanceFlow unless the user explicitly asks to revisit AI drafting.
+FreelanceFlow's approved product direction now includes AI drafting and usage credits, subscription plans, and automatic invoice reminders. These are not implemented yet. AI provider setup remains unauthorized: do not retry it or request an API key unless the user explicitly asks to set up the provider.
 
-**Why:** On October 7, 2026, the user declined the upgrade and canceled the secure API-key request. We agreed to proceed with manual proposal editing and to be clear that AI drafting is unavailable.
+**Why:** On October 8, 2026, the user approved the attached monetization plan as superseding the earlier manual-only product direction, but explicitly said not to implement those features in that task. The earlier decline of AI provider setup was not an instruction to connect a provider.
 
-**How to apply:** Keep proposal authoring manual and editable, and do not label ordinary templates or copied text as AI-generated.
+**How to apply:** Treat the monetization capabilities as approved roadmap direction, not as currently available functionality. Implement them only when a future request scopes the work; do not infer provider setup permission from roadmap approval.

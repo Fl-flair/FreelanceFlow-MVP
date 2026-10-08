@@ -1,0 +1,19 @@
+kind = "design-system"
+previewPath = "/freelanceflow-design-system/"
+title = "FreelanceFlow Design System"
+description = "A reusable design system extracted from FreelanceFlow: warm paper surfaces, deep charcoal, sage-green accents, Manrope display type, quiet forms, and rounded cards for a calm freelancer workbench."
+version = "1.0.0"
+id = "artifacts/freelanceflow-design-system"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/freelanceflow-design-system/" ]
+localPort = 22938
+
+[services.development]
+run = "pnpm --filter @workspace/freelanceflow-design-system run dev"
+
+[services.env]
+PORT = "22938"
+BASE_PATH = "/freelanceflow-design-system/"
