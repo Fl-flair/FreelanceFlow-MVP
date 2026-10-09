@@ -16,7 +16,7 @@ metadata:
         bins:
           - browser-use
         label: Install Browser Use CLI (uv)
-enabled: false
+enabled: true
 ---
 
 # Browser Use
