@@ -26,6 +26,8 @@ jobs:
           cache: pnpm
       - name: Install workspace dependencies
         run: pnpm install --frozen-lockfile
+      - name: Build shared TypeScript libraries
+        run: pnpm run typecheck:libs
       - name: Typecheck Freedive
         run: pnpm --filter @workspace/freelanceflow typecheck
       - name: Build Freedive
