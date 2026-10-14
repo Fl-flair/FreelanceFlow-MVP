@@ -238,7 +238,7 @@ function Workspace({ title, subtitle, action, children }: { title: string; subti
         <div className="flex items-center gap-3"><span className="hidden text-xs text-muted-foreground sm:block">{user?.firstName || 'Your workspace'}</span><div className="grid h-8 w-8 place-items-center rounded-full bg-[#dce9de] text-xs font-bold text-[#397d63]">{(user?.firstName || user?.emailAddresses?.[0]?.emailAddress || 'F').slice(0,1).toUpperCase()}</div></div>
       </header>
       {open && <div className="no-print fixed inset-0 z-40 bg-black/25 md:hidden" onClick={() => setOpen(false)}><div className="h-full w-[290px] bg-[#26343a] p-5 text-white" onClick={e => e.stopPropagation()}><div className="flex items-center justify-between"><Brand light /><button onClick={() => setOpen(false)} aria-label="Close navigation"><X /></button></div><nav className="mt-8 space-y-2">{navItems.map(i => <Link key={i.href} href={i.href} onClick={() => setOpen(false)} className="flex items-center gap-3 rounded-xl px-3 py-3 text-sm hover:bg-[#35474a]"><i.icon size={17} />{i.label}</Link>)}</nav></div></div>}
-      <main className="page-wrap animate-enter"><div className="mb-8 flex flex-wrap items-end justify-between gap-4"><div><p className="font-mono text-[10px] uppercase tracking-[.2em] text-primary">{active} · FreelanceFlow</p><h1 className="mt-2 font-[var(--app-font-serif)] text-3xl font-bold tracking-[-.055em] md:text-[2.35rem]">{title}</h1><p className="mt-2 max-w-xl text-sm text-muted-foreground">{subtitle}</p></div>{action}</div>{children}</main>
+      <main className="page-wrap animate-enter"><div className="mb-7 flex flex-col items-start justify-between gap-4 sm:mb-9 sm:flex-row sm:items-end"><div className="min-w-0"><p className="font-mono text-[10px] uppercase tracking-[.2em] text-primary">{active} · FreelanceFlow</p><h1 className="mt-2 max-w-3xl font-[var(--app-font-serif)] text-3xl font-bold tracking-[-.055em] md:text-[2.5rem]">{title}</h1><p className="mt-2 max-w-xl text-sm leading-6 text-muted-foreground">{subtitle}</p></div>{action && <div className="w-full shrink-0 sm:w-auto">{action}</div>}</div>{children}</main>
     </div>
   </div>;
 }
@@ -249,21 +249,31 @@ function useRefresh(...keys: (() => readonly unknown[])[]) {
 function LoadingRows({ count = 3 }: { count?: number }) { return <div className="space-y-3">{Array.from({ length: count }, (_, i) => <div key={i} className="h-[68px] animate-pulse rounded-xl bg-muted/70" />)}</div>; }
 function LoadError({ retry }: { retry: () => void }) { return <div className="surface px-6 py-12 text-center"><p className="font-semibold">We couldn’t load this just now.</p><p className="mt-1 text-sm text-muted-foreground">Your work is still here. Try again in a moment.</p><button onClick={retry} className="btn-quiet mt-5" data-testid="button-retry">Try again</button></div>; }
 function EmptyState({ title, body, action }: { title: string; body: string; action?: React.ReactNode }) { return <div className="surface flex min-h-[220px] flex-col items-center justify-center px-5 py-10 text-center"><div className="grid h-11 w-11 place-items-center rounded-2xl bg-accent text-primary"><BriefcaseBusiness size={20} /></div><h3 className="mt-4 font-semibold">{title}</h3><p className="mt-1 max-w-sm text-sm text-muted-foreground">{body}</p>{action && <div className="mt-5">{action}</div>}</div>; }
-function Metric({ label, value, note, icon: Icon, variant = 'sage' }: { label: string; value: string; note: string; icon: typeof WalletCards; variant?: string }) { return <div className="surface relative overflow-hidden p-5"><span className={`absolute -right-4 -top-7 h-24 w-24 rounded-full ${variant === 'clay' ? 'bg-[#f0e4d6]' : 'bg-[#e2eee4]'}`} /><div className="relative flex items-center justify-between"><span className="text-xs font-semibold text-muted-foreground">{label}</span><span className={`grid h-8 w-8 place-items-center rounded-lg ${variant === 'clay' ? 'bg-[#f0e4d6] text-[#a06c42]' : 'bg-[#e2eee4] text-primary'}`}><Icon size={16} /></span></div><p className="relative mt-4 font-[var(--app-font-serif)] text-[1.8rem] font-bold tracking-[-.045em]">{value}</p><p className="relative mt-1 text-[11px] text-muted-foreground">{note}</p></div>; }
+function Metric({ label, value, note, icon: Icon, variant = 'sage' }: { label: string; value: string; note: string; icon: typeof WalletCards; variant?: string }) {
+  return <section className="surface group relative isolate min-w-0 overflow-hidden p-5 sm:p-5.5">
+    <span aria-hidden="true" className={`pointer-events-none absolute -right-5 -top-8 -z-10 h-28 w-28 rounded-full transition-transform duration-300 group-hover:scale-110 ${variant === 'clay' ? 'bg-[#f0e4d6]/80' : 'bg-[#e2eee4]/90'}`} />
+    <div className="flex items-start justify-between gap-3">
+      <span className="pt-1 text-xs font-semibold leading-5 text-muted-foreground">{label}</span>
+      <span className={`grid h-9 w-9 shrink-0 place-items-center rounded-xl ring-1 ring-inset ring-black/[0.025] ${variant === 'clay' ? 'bg-[#f0e4d6] text-[#a06c42]' : 'bg-[#e2eee4] text-primary'}`}><Icon size={17} strokeWidth={1.8} /></span>
+    </div>
+    <p className="mt-4 break-words font-[var(--app-font-serif)] text-[1.7rem] font-bold tabular-nums tracking-[-.045em] sm:text-[1.85rem]">{value}</p>
+    <p className="mt-1.5 min-h-8 text-[11px] leading-4 text-muted-foreground">{note}</p>
+  </section>;
+}
 function DashboardPage() {
   const overview = useGetFreelanceOverview();
   const qc = useQueryClient();
   const data = overview.data;
   return <Workspace title="A good day to make progress." subtitle="Here’s the shape of your work, all in one place." action={<Link href="/proposals" className="btn-primary"><Plus size={16} /> New proposal</Link>}>
     {overview.isLoading ? <><div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">{[1,2,3,4].map(i => <div key={i} className="h-36 animate-pulse rounded-2xl bg-muted/70" />)}</div><div className="mt-6 h-64 animate-pulse rounded-2xl bg-muted/70" /></> : overview.isError ? <LoadError retry={() => qc.invalidateQueries({ queryKey: getGetFreelanceOverviewQueryKey() })} /> : <div className="space-y-6">
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="grid items-stretch gap-4 sm:grid-cols-2 2xl:grid-cols-4">
         <Metric label="Active proposals" value={`${data?.activeProposals ?? 0}`} note="Out in the world" icon={FileText} />
         <Metric label="Outstanding" value={money(data?.outstandingAmount)} note={`${data?.outstandingInvoices ?? 0} invoices to keep an eye on`} icon={HandCoins} variant="clay" />
         <Metric label="Paid this month" value={money(data?.paidThisMonth)} note="A little proof it's working" icon={WalletCards} />
         <Metric label="Reminders to review" value={`${data?.remindersToReview ?? 0}`} note="Drafts waiting for your voice" icon={Mail} variant="clay" />
       </div>
-      <div className="grid gap-6 xl:grid-cols-[1.55fr_.75fr]">
-        <section className="surface overflow-hidden"><div className="flex items-center justify-between border-b border-border px-5 py-4"><div><h2 className="font-semibold">Recent invoices</h2><p className="mt-1 text-xs text-muted-foreground">A quick look at what’s moving.</p></div><Link href="/invoices" className="inline-flex items-center gap-1 text-xs font-semibold text-primary">All invoices <ArrowRight size={14} /></Link></div>
+      <div className="grid gap-5 xl:grid-cols-[minmax(0,1.55fr)_minmax(280px,.75fr)] 2xl:gap-6">
+        <section className="surface min-w-0 overflow-hidden"><div className="flex items-center justify-between gap-4 border-b border-border px-5 py-4"><div><h2 className="font-semibold">Recent invoices</h2><p className="mt-1 text-xs text-muted-foreground">A quick look at what’s moving.</p></div><Link href="/invoices" className="inline-flex items-center gap-1 text-xs font-semibold text-primary">All invoices <ArrowRight size={14} /></Link></div>
           {data?.recentInvoices?.length ? <div>{data.recentInvoices.map(inv => <InvoiceRow key={inv.id} invoice={inv} />)}</div> : <div className="p-5"><EmptyState title="Your first invoice is still ahead." body="Once a proposal is accepted, turn it into an invoice in a couple of clicks." action={<Link href="/proposals" className="btn-quiet">See proposals</Link>} /></div>}
         </section>
         <section className="relative overflow-hidden rounded-2xl bg-[#2d403e] p-6 text-[#f4f1e8]"><div className="absolute -right-12 -top-10 h-44 w-44 rounded-full border border-[#5d746a]/50" /><div className="absolute -right-5 -top-3 h-28 w-28 rounded-full border border-[#5d746a]/50" /><div className="relative"><span className="grid h-9 w-9 place-items-center rounded-xl bg-[#b9d7bf] text-[#2d403e]"><Clock3 size={18} /></span><p className="mt-7 font-mono text-[9px] uppercase tracking-[.2em] text-[#b7c8bc]">A gentle nudge</p><h2 className="mt-2 font-[var(--app-font-serif)] text-2xl font-bold leading-tight">Keep the good work moving.</h2><p className="mt-3 text-sm leading-6 text-[#cad4cc]">Review a reminder draft, make it sound like you, then copy it into your own email.</p><Link href="/reminders" className="mt-6 inline-flex items-center gap-2 rounded-xl bg-[#d9e8d8] px-4 py-2.5 text-xs font-bold text-[#2d403e] transition hover:bg-white">Review reminders <ArrowRight size={15} /></Link></div></section>
@@ -278,7 +288,7 @@ function InvoiceRow({ invoice }: { invoice: Invoice }) {
 function Status({ value }: { value: string }) {
   const label = value.charAt(0).toUpperCase() + value.slice(1);
   const cls = ['paid','accepted'].includes(value) ? 'bg-[#e5f0e6] text-[#3e795b]' : ['overdue','declined'].includes(value) ? 'bg-[#f5e4df] text-[#a94b3f]' : value === 'draft' ? 'bg-muted text-muted-foreground' : 'bg-[#f3ebdc] text-[#98703e]';
-  return <span data-testid={`status-${value}`} className={`inline-flex rounded-full px-2.5 py-1 text-[10px] font-semibold ${cls}`}>{label}</span>;
+  return <span data-testid={`status-${value}`} className={`inline-flex items-center whitespace-nowrap rounded-full border border-current/10 px-2.5 py-1 text-[10px] font-bold leading-4 ${cls}`}>{label}</span>;
 }
 function Dialog({ title, close, children }: { title: string; close: () => void; children: React.ReactNode }) {
   return <div className="fixed inset-0 z-50 flex items-end justify-center bg-[#1f2b2d]/45 p-0 backdrop-blur-[2px] sm:items-center sm:p-5" onMouseDown={e => { if(e.target === e.currentTarget) close(); }}>
