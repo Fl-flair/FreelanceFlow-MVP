@@ -32,3 +32,6 @@ jobs:
         run: pnpm --filter @workspace/freelanceflow typecheck
       - name: Build Freedive
         run: pnpm --filter @workspace/freelanceflow build
+        env:
+          PORT: 5000
+          BASE_PATH: /
